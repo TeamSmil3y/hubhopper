@@ -25,8 +25,8 @@ function App() {
 
   return (
     <div>
-      <TopBar select="source" destination_hub="Hubby hub" />
-      <Map hubs={data.status === "success" ? data.data : []} onMarkerClick={(data) => console.log(data)}/>
+      <Rides />
+      <Map hubs={data.status === "success" ? data.data : []} />
       {/*<RouterProvider router={router} />*/}
     </div>
   )
