@@ -1,14 +1,10 @@
-import { useState, useEffect } from "react";
 import {
   createBrowserRouter,
-  RouterProvider,
 } from "react-router-dom";
 import { useQuery } from "react-query";
-import axios from "axios";
 
 import './App.css'
 import {Map} from "./features/map/Map";
-import {TopBar} from "./features/topbar/TopBar";
 import {Rides} from "./pages/Rides";
 
 import {get_hubs} from "./features/api/api";
