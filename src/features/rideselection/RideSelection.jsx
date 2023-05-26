@@ -6,7 +6,9 @@ import { RSTopBar } from './RSTopBar'
 
 export const RideSelection = (props) => {
     return (
-        <RSTopBar />
-        
+        <>
+            <RSTopBar />
+            <div style={{width: "100vw", height: "100vh", position: "absolute", top: "0", left: "0", zIndex: "600", backgroundColor: "white"}}></div>
+        </>
     )
 }
