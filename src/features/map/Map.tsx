@@ -31,12 +31,14 @@ const getLocation = (): Promise<Loc> => {
 type Loc = [number, number]
 type Hub = {
   loc: Loc,
+  address: string
   // type: 'official' | 'community'
 }
 
 type Props = {
   hubs?: Hub[],
-  cars?: null[]
+  cars?: null[],
+  onMarkerClick: (hub: Hub) => void
 }
 
 export const Map = (props: Props) => {
@@ -51,7 +53,7 @@ export const Map = (props: Props) => {
   )
 }
 
-const MapContent = ({ hubs }: Props) => {
+const MapContent = ({ hubs, onMarkerClick }: Props) => {
   const map = useMap();
   const [currentLocation, setLocation] = useState<Loc>([0, 0])
 
@@ -90,10 +92,23 @@ const MapContent = ({ hubs }: Props) => {
 
   return (
     <div>
-      {hubs?.map(({ loc }) => (
-        <Marker key={loc} position={new L.LatLng(loc[0], loc[1])} icon={hubIcon}>
-
-        </Marker>
+      {/*<Marker*/}
+      {/*  key={currentLocation}*/}
+      {/*  position={currentLocation}*/}
+      {/*  icon={hubIcon}*/}
+      {/*  eventHandlers={{*/}
+      {/*    click: () => console.log('clicked')*/}
+      {/*  }}*/}
+      {/*></Marker>*/}
+      {hubs?.map((hub) => (
+        <Marker
+          key={hub.loc}
+          position={new L.LatLng(hub.loc[0], hub.loc[1])}
+          icon={hubIcon}
+          eventHandlers={{
+            click: () => onMarkerClick(hub)
+          }}
+        ></Marker>
       ))}
     </div>
   )
