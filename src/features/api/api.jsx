@@ -31,7 +31,12 @@ export async function get(path) {
 }
 
 export async function get_hubs() {
-    return JSON.parse(await get('/get_hubs/')).map(data => ({ loc: [data.fields.latitude, data.fields.longitude] }))
+    const data = JSON.parse(await get('/get_hubs/'));
+    // console.log(data)
+    return data.map(data => ({
+        loc: [data.fields.latitude, data.fields.longitude],
+        address: data.fields.info
+    }))
 }
 export async function find_rides(destination_hub_id, source_hub_id) {
     return await post('/find-rides/', {'destination_hub_id':destination_hub_id, 'source_hub_id':source_hub_id})

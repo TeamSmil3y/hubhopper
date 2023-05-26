@@ -21,21 +21,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const [modal, setModal] = useState(false);
-
   const data = useQuery('hubs', get_hubs)
-  console.log(data)
-
-  const setMode = (mode: 'driver' | 'passenger') => {
-    localStorage.setItem('mode', mode)
-    router.navigate(0)
-  }
 
   return (
     <div>
-      <button className='hamburger' onClick={() => setModal(m => !m)}>[]</button>
       <TopBar select="source" destination_hub="Hubby hub" />
-      <Map hubs={data.status === "success" ? data.data : []} />
+      <Map hubs={data.status === "success" ? data.data : []} onMarkerClick={(data) => console.log(data)}/>
       {/*<RouterProvider router={router} />*/}
     </div>
   )
