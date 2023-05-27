@@ -25,7 +25,6 @@ export const Rides = () => {
       if (selection === "source") {
         setPassengerState((state) => ({...state, departure: hub }))
         navigate('/rides')
-        console.log('ready to go for next step')
         return
       }
     }
@@ -44,6 +43,7 @@ export const Rides = () => {
               }
             />
             <Route path="rides" element={<RideSelection />} />
+            <Route path="lobby" element={<RideSelection />} />
           </Routes>
             <Map
               hubs={queryClient.getQueryData('hubs') || []}

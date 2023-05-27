@@ -13,7 +13,7 @@ import {passengerFlowState, queryClient} from "../../state";
 type Ride = {
   id: string,
   points: number,
-  driver: number,
+  driver: string,
 }
 
 export const RideSelection = () => {

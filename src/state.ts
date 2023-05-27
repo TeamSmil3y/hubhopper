@@ -14,3 +14,12 @@ export const passengerFlowState = atom<{
 		destination: null,
 	},
 });
+
+export const lobbyState = atom({
+	key: 'lobbyKey',
+	default: {
+		driver: "",
+		destination: "",
+
+	},
+})
