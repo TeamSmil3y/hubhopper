@@ -1,5 +1,9 @@
+import { useState } from "react";
 import {
   createBrowserRouter,
+  RouterProvider,
+  Router,
+  BrowserRouter
 } from "react-router-dom";
 import { useQuery } from "react-query";
 
@@ -17,12 +21,13 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const data = useQuery('hubs', get_hubs)
+  useQuery('hubs', get_hubs)
 
   return (
     <div>
-      <Rides />
-      <Map hubs={data.status === "success" ? data.data : []} />
+      <BrowserRouter>
+        <Rides />
+      </BrowserRouter>
       {/*<RouterProvider router={router} />*/}
     </div>
   )
