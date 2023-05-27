@@ -11,6 +11,8 @@ import {useRecoilValue, useRecoilState, useResetRecoilState} from "recoil";
 import {passengerFlowState, queryClient, lobbyState as lobbyState$} from "../../state";
 import {Lobby} from "./Lobby";
 
+import noRides from "../../assets/noRides.png"
+
 export type Ride = {
   id: string,
   points: number,
@@ -87,7 +89,9 @@ export const RideSelection = () => {
                 <div>loading</div>
               )}
               {(data.status === "success" && data.data.length === 0) && (
-                <div>no rides</div>
+                <div>
+                  <img width={200} height={200} src={noRides}/>
+                </div>
               )}
               {data.status === "success" && (data.data as Ride[]).map((ride) => (
                 <div className="rs-ride" key={ride.id} onClick={() => selectRide(ride)}>

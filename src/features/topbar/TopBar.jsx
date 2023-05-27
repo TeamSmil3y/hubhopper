@@ -22,7 +22,9 @@ export const TopBar = (props) => {
         // rendering for selecting source
         <div id="topbar">
             <IoIosArrowBack id='source-backbtn' onClick={props.onGoBack} />
-            <span id='source-destinfo'><span>Destination Hub: {props.destination_hub}</span><span><FiClock style={{transform: 'translateY(0.17em)', color: '#B9BCBE', marginRight: '0.2em'}} />{today.getHours() + ":" + today.getMinutes()}</span></span>
+            <span id='source-destinfo'><span>Destination Hub: {props.destination_hub}</span><span>
+                <FiClock style={{transform: 'translateY(0.17em)', color: '#B9BCBE', marginRight: '0.2em'}} />{today.getHours() + ":" + today.getMinutes()}
+            </span></span>
             <GrFormSearch id='source-img-lens' />
             <input readOnly id='source-input' placeholder="Search Start Hub" value={passengerFlow.departure?.address} />
         </div>

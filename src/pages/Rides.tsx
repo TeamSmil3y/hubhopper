@@ -38,7 +38,7 @@ export const Rides = () => {
               element={
                 <TopBar
                 select={selection}
-                destination_hub="Hubby hub"
+                destination_hub={passengerFlow.destination?.address}
                 onGoBack={() => setSelection("destination")}
                 />
               }

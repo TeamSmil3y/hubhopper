@@ -71,6 +71,24 @@ export async function finish_ride(ride_id) {
     return await post('/request-join-ride/', {'ride_id':ride_id})
 }
 export async function update() {
-    return await get('/update/')
+    const data$ = await get('/update/')
+    const data = data$[0]
+    switch(data.type) {
+        case 'join_request':
+            return {
+                type: data.type,
+                passenger: JSON.parse(data.passenger)
+            }
+        // case 'joined_ride':
+        //     callback_jri(event.ride)
+        //     break
+        // case 'ride_cancelled':
+        //     callback_rca(event.ride)
+        //     break
+        // case 'cancel_join_request':
+        //     callback_cjre(event.user)
+        //     break
+    }
+    throw new Error('unexpected case')
 }
 

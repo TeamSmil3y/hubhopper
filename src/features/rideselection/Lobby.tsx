@@ -26,14 +26,15 @@ export const Lobby = ({ driver, destination, owner, rideId }: Props) => {
 		},
 	})
 
-	console.log('events', events)
+	if (events.status === 'success') {
+		console.log(events.data)
+	}
 
 
 	return (
-		<div>
-			Destination: {destination}
-			Driver name: {driver}
-			{owner}
+		<div style={{ display: "flex", flexDirection: "column", alignItems: "start", padding: "30px", paddingTop: 0 }}>
+			<p>Destination: {destination}</p>
+			<p>Driver name: {driver}</p>
 			{!owner && (
 				<button onClick={() => requestJoin({
 					ride_id: rideId,
