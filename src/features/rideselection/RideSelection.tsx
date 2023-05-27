@@ -98,11 +98,12 @@ export const RideSelection = () => {
                 </div>
               ))}
               <button
+                className="create-ride-button"
                 onClick={() => createRide({
                   destination_hub_id: passengerFlow.destination.id,
                   source_hub_id: passengerFlow.departure.id,
                 })}
-              >create ride</button>
+              >Create ride</button>
             </div>
           )}
 

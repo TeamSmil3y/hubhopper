@@ -3,17 +3,24 @@ import { GrLocation } from "react-icons/gr";
 
 export const RSTopBar = (props) => {
     return (
-        <div id='rs-topbar'>
-            <div onClick={props.onBack}>
+        <div id='rs-topbar' style={{ display: "flex", alignItems: "flex-end" }}>
+            <div onClick={props.onBack} style={{position: 'absolute', top: "18px", left: '16px', display: "flex", alignItems: "center" }}>
                 <IoIosArrowBack
-                    style={{position: 'absolute', top: "50px", left: '20px', fontSize: '1em', fontFamily: 'Blinker', color: '#B9BCBE'}}
+                    style={{ fontSize: '1em', fontFamily: 'Blinker', color: '#5e6163'}}
                 />
-                <span style={{position: 'absolute', top: "50px", left: '40px', fontSize: '1em', fontFamily: 'Blinker', color: '#B9BCBE'}}>Back</span>
+                <span style={{ fontSize: '1em', fontFamily: 'Blinker', color: '#5E6163FF'}}>Back</span>
             </div>
-            <GrLocation style={{position: 'absolute', top: "130px", left: '20px', color: 'black', fontSize: '2em'}}/>
-            <IoIosArrowRoundForward style={{position: 'absolute', top: "130px", left: '50%', color: 'black', fontSize: '2em'}}/>
-            <span style={{position: 'absolute', top: "135px", left: '60px', color: 'black', fontSize: '1em', fontFamily: 'Blinker'}}>{props.from}</span>
-            <span style={{position: 'absolute', top: "135px", left: '260px', color: 'black', fontSize: '1em', fontFamily: 'Blinker'}}>{props.to}</span>
+            <div style={{ display: "flex", justifyContent: "space-between", padding: "10px 20px", width: "100%" }}>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    <GrLocation style={{ color: 'black', fontSize: '0.9sem'}} />
+                    <span style={{ color: 'black', fontSize: '1em', fontFamily: 'Blinker'}}>{props.from}</span>
+                </div>
+                <IoIosArrowRoundForward style={{ color: 'black', fontSize: '1.3em'}}/>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    <GrLocation style={{ color: 'black', fontSize: '0.9sem'}} />
+                    <span style={{ color: 'black', fontSize: '1em', fontFamily: 'Blinker'}}>{props.to}</span>
+                </div>
+            </div>
         </div>
     )
 }
