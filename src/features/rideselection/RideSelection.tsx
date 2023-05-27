@@ -14,9 +14,12 @@ const rides=[{driver:"Tim Ruppert", points:"230"}, {driver: "Lukas Stockmann", p
 
 export const RideSelection = () => {
   const navigate = useNavigate();
-
-
   const passengerFlow = useRecoilValue(passengerFlowState)
+
+  if (!(passengerFlow.destination && passengerFlow.departure)) {
+    navigate('/')
+  }
+
     const data = useQuery({
       queryKey: 'rides',
       queryFn: () => find_rides(passengerFlow.destination.id, passengerFlow.departure.id),
@@ -27,10 +30,6 @@ export const RideSelection = () => {
     mutationFn: (vars) => create_ride(vars)
   })
   console.log(data)
-
-  if (!(passengerFlow.destination && passengerFlow.departure)) {
-    navigate('/')
-  }
 
     return (
         <div style={{width: "100vw", height: "100vh", position: "absolute", paddingTop: "190px",top: "0px", left: "0", zIndex: "600", backgroundColor: "white"}}>
