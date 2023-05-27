@@ -11,9 +11,12 @@ function authorize(email, password)
 export async function post(path, body) {
     let request = await fetch("https://api.hubhopper.app"+path, {
         method: "POST",
+        mode: "cors",
+        
         body: JSON.stringify(body),
         headers: {
-            "Content-type": "application/json; charset=UTF-8",
+            "Content-Type": "application/json",
+            
             "Authorization": authorize(email, password)
         }
     });
