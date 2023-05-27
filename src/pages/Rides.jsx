@@ -6,7 +6,7 @@ export const Rides = (props) => {
 
     return (
         <>
-            <RideSelection rides={[{driver:"Tim Ruppert", points:"230"}, {driver: "Lukas Stockmann", points:"666"}]} />
+            <RideSelection />
             <TopBar select="source" destination_hub="Hubby hub" />
         </>
     )

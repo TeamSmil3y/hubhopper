@@ -5,12 +5,14 @@ import { TbLeaf, TbLeafOff } from "react-icons/tb";
 
 import { RSTopBar } from './RSTopBar'
 
+const rides=[{driver:"Tim Ruppert", points:"230"}, {driver: "Lukas Stockmann", points:"666"}]
+
 export const RideSelection = (props) => {
     return (
         <>
             <RSTopBar />
             <div style={{width: "100vw", height: "100vh", position: "absolute", paddingTop: "190px",top: "0px", left: "0", zIndex: "600", backgroundColor: "white"}}>
-                { props.rides.map((ride) => { return (
+                { rides.map((ride) => { return (
                     <div className="rs-ride">
                         <div style={{backgroundColor: "white", borderRadius: "100vw", height: "3em", aspectRatio: "1/1"}}></div>
                         <div style={{justifySelf: "start"}}><span style={{color: "#4D7143"}}>{ride.driver}</span></div>
