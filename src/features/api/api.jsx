@@ -1,15 +1,11 @@
 import { getRecoil } from "recoil-nexus";
-import {passengerFlowState} from "../../state";
+import {currentUser} from "../../state";
 
-const users = [
-    ['hkleinber3s@ucoz.ru', 'password'],
-    ['nbroggiorm@mail.ru', 'password'],
-]
-
-function authorize(email = users[0][0], password = users[0][1])
+function authorize()
 {
     // base64 encoded basic auth username:password@web.site
-    console.log(getRecoil(passengerFlowState))
+    const { email, password } = getRecoil(currentUser)
+    console.log({ email, password })
     var creds = btoa(email + ":" + password)
     return "Basic " + creds
 }

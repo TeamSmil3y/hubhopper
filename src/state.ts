@@ -23,3 +23,11 @@ export const lobbyState = atom({
 		owner: false,
 	},
 })
+
+export const currentUser = atom({
+	key: 'currentUser',
+	default: {
+		email: 'hkleinber3s@ucoz.ru',
+		password: 'password'
+	}
+})
