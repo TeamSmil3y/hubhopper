@@ -10,9 +10,6 @@ export const RSTopBar = (props) => {
             <IoIosArrowRoundForward style={{position: 'absolute', top: "130px", left: '50%', color: 'black', fontSize: '2em'}}/>
             <span style={{position: 'absolute', top: "135px", left: '60px', color: 'black', fontSize: '1em', fontFamily: 'Blinker'}}>{props.from}</span>
             <span style={{position: 'absolute', top: "135px", left: '260px', color: 'black', fontSize: '1em', fontFamily: 'Blinker'}}>{props.to}</span>
-            {/* props.rides.map((ride) => {
-                <div style={{}}> </div>
-            }) */}
         </div>
     )
 }
