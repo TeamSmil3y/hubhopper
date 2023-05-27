@@ -174,3 +174,16 @@ textarea:focus, input:focus{
   background: #D3E0C3;
   border-radius: 0px 0px 10px 10px;
 }
+.rs-ride {
+  z-index: 650;
+  border-radius: 10px;
+  margin: 0.6em 0.4em;
+  background-color: #F1F1F1;
+  display: grid;
+  padding: 1em 1em;
+  grid-template-columns: 20% 60% 20%;
+}
+.rs-ride div {
+  display: grid;
+  grid-template-rows: 60% 40%;
+}
