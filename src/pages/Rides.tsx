@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import { TopBar } from '../features/topbar/TopBar'
 import { RideSelection } from '../features/rideselection/RideSelection'
@@ -9,6 +10,7 @@ import {passengerFlowState, queryClient} from "../state";
 
 
 export const Rides = () => {
+  const navigate = useNavigate();
     const [passengerFlow, setPassengerState] = useRecoilState(passengerFlowState)
     // console.log(queryClient.getQueryData('hubs'))
 
@@ -22,6 +24,7 @@ export const Rides = () => {
       }
       if (selection === "source") {
         setPassengerState((state) => ({...state, departure: hub }))
+        navigate('/rides')
         console.log('ready to go for next step')
         return
       }
@@ -29,12 +32,19 @@ export const Rides = () => {
 
     return (
         <>
-            {/*<RideSelection />*/}
-            <TopBar
-              select={selection}
-              destination_hub="Hubby hub"
-              onGoBack={() => setSelection("destination")}
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <TopBar
+                select={selection}
+                destination_hub="Hubby hub"
+                onGoBack={() => setSelection("destination")}
+                />
+              }
             />
+            <Route path="rides" element={<RideSelection />} />
+          </Routes>
             <Map
               hubs={queryClient.getQueryData('hubs') || []}
               onMarkerClick={onSelect}

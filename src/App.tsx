@@ -1,6 +1,9 @@
 import { useState } from "react";
 import {
   createBrowserRouter,
+  RouterProvider,
+  Router,
+  BrowserRouter
 } from "react-router-dom";
 import { useQuery } from "react-query";
 
@@ -22,7 +25,9 @@ function App() {
 
   return (
     <div>
-      <Rides />
+      <BrowserRouter>
+        <Rides />
+      </BrowserRouter>
       {/*<RouterProvider router={router} />*/}
     </div>
   )
