@@ -20,6 +20,6 @@ export const lobbyState = atom({
 	default: {
 		driver: "",
 		destination: "",
-
+		owner: false,
 	},
 })

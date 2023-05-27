@@ -102,7 +102,9 @@ const MapContent = ({ hubs, onMarkerClick }: Props) => {
           position={new L.LatLng(hub.loc[0], hub.loc[1])}
           icon={hubIcon}
           eventHandlers={{
-            click: () => onMarkerClick(hub)
+            click: () => {
+              onMarkerClick(hub)
+            }
           }}
         ></Marker>
       ))}

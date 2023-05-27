@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import {
   RecoilRoot,
 } from 'recoil';
+import RecoilNexus from "recoil-nexus";
 
 import App from './App.tsx'
 import './index.css'
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
+        <RecoilNexus />
         <App />
       </RecoilRoot>
     </QueryClientProvider>

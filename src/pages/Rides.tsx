@@ -23,6 +23,7 @@ export const Rides = () => {
         return
       }
       if (selection === "source") {
+        console.log(hub)
         setPassengerState((state) => ({...state, departure: hub }))
         navigate('/rides')
         return

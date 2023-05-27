@@ -1,9 +1,15 @@
-var email = 'hkleinber3s@ucoz.ru';
-var password = 'password';
+import { getRecoil } from "recoil-nexus";
+import {passengerFlowState} from "../../state";
 
-function authorize(email, password)
+const users = [
+    ['hkleinber3s@ucoz.ru', 'password'],
+    ['nbroggiorm@mail.ru', 'password'],
+]
+
+function authorize(email = users[0][0], password = users[0][1])
 {
     // base64 encoded basic auth username:password@web.site
+    console.log(getRecoil(passengerFlowState))
     var creds = btoa(email + ":" + password)
     return "Basic " + creds
 }
@@ -17,7 +23,7 @@ export async function post(path, body) {
         headers: {
             "Content-Type": "application/json",
 
-            "Authorization": authorize(email, password)
+            "Authorization": authorize()
         }
     });
     return await request.json()
@@ -27,7 +33,7 @@ export async function get(path) {
         method: "GET",
         headers: {
             "Content-type": "application/json; charset=UTF-8",
-            "Authorization": authorize(email, password)
+            "Authorization": authorize()
         }
     });
     return await request.json()
@@ -55,11 +61,7 @@ export async function find_rides(destination_hub_id, source_hub_id) {
 }
 export async function create_ride({ destination_hub_id, source_hub_id }) {
     const data = await post('/create-ride/', {'destination_hub_id':destination_hub_id, 'source_hub_id':source_hub_id})
-    console.log(data)
-    return {
-        ...data,
-        ride: JSON.parse(data.ride)
-    }
+    return JSON.parse(data.ride)
 }
 export async function join_request(ride_id, source_hub_id) {
     return await post('/request-join-ride/', {'ride_id':ride_id, 'passenger_hub_id':source_hub_id})

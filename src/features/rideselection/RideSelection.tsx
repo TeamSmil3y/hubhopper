@@ -7,8 +7,8 @@ import { TbLeaf, TbLeafOff } from "react-icons/tb";
 import { RSTopBar } from './RSTopBar'
 import {find_rides, create_ride} from "../api/api.jsx";
 import {useQuery, useMutation} from "react-query";
-import {useRecoilValue} from "recoil";
-import {passengerFlowState, queryClient} from "../../state";
+import {useRecoilValue, useRecoilState} from "recoil";
+import {passengerFlowState, queryClient, lobbyState as lobbyState$} from "../../state";
 
 type Ride = {
   id: string,
@@ -19,6 +19,7 @@ type Ride = {
 export const RideSelection = () => {
   const navigate = useNavigate();
   const passengerFlow = useRecoilValue(passengerFlowState)
+  const [lobbyState, setLobbyState] = useRecoilState(lobbyState$)
 
   if (!(passengerFlow.destination && passengerFlow.departure)) {
     navigate('/')
@@ -33,11 +34,25 @@ export const RideSelection = () => {
   const { mutate: createRide} = useMutation({
     mutationKey: 'rides',
     mutationFn: (vars) => create_ride(vars),
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['rides'] })
+      console.log('onSuc', data)
+      selectRide({
+        ...data,
+        driver: "You"
+      }, true)
     },
   })
-  // console.log(data)
+
+  const selectRide = (ride: Ride, owner = false) => {
+    const data = {
+      driver: ride.driver,
+      destination: passengerFlow.destination.address,
+      owner
+    }
+    console.log('----', data)
+    setLobbyState(data)
+  }
 
     return (
         <div style={{
@@ -52,6 +67,14 @@ export const RideSelection = () => {
           color: '#000'
         }}>
             <RSTopBar />
+          {lobbyState.driver !== "" && (
+            <div>
+              Destination: {lobbyState.destination}
+              Driver name: {lobbyState.driver}
+              {!lobbyState.owner && <button>Request to join</button>}
+            </div>
+          )}
+          {lobbyState.driver === '' && (
             <div>
               {data.status !== "success" && (
                 <div>loading</div>
@@ -59,20 +82,21 @@ export const RideSelection = () => {
               {(data.status === "success" && data.data.length === 0) && (
                 <div>no rides</div>
               )}
-                {data.status === "success" && data.data.map((ride) => (
-                    <div className="rs-ride">
-                        <div style={{backgroundColor: "white", borderRadius: "100vw", height: "3em", aspectRatio: "1/1"}}></div>
-                        <div style={{justifySelf: "start"}}><span style={{color: "#4D7143"}}>{ride.driver}</span></div>
-                        <div><span style={{color: "#4D7143"}}>{ride.points>500?<TbLeaf/>:<TbLeafOff/>}{ride.points>100?<TbLeaf/>:<TbLeafOff/>}{ride.points>10?<TbLeaf/>:<TbLeafOff/>}</span><span style={{color: "black"}}>{ride.points}</span></div>
-                    </div>
-                  ))}
+              {data.status === "success" && (data.data as Ride[]).map((ride) => (
+                <div className="rs-ride" key={ride.id} onClick={() => selectRide(ride)}>
+                  <div style={{backgroundColor: "white", borderRadius: "100vw", height: "3em", aspectRatio: "1/1"}}></div>
+                  <div style={{justifySelf: "start"}}><span style={{color: "#4D7143"}}>{ride.driver}</span></div>
+                  <div><span style={{color: "#4D7143"}}>{ride.points>500?<TbLeaf/>:<TbLeafOff/>}{ride.points>100?<TbLeaf/>:<TbLeafOff/>}{ride.points>10?<TbLeaf/>:<TbLeafOff/>}</span><span style={{color: "black"}}>{ride.points}</span></div>
+                </div>
+              ))}
+              <button
+                onClick={() => createRide({
+                  destination_hub_id: passengerFlow.destination.id,
+                  source_hub_id: passengerFlow.departure.id,
+                })}
+              >create ride</button>
             </div>
-          <button
-            onClick={() => createRide({
-              destination_hub_id: passengerFlow.destination.id,
-              source_hub_id: passengerFlow.departure.id,
-            })}
-          >create ride</button>
+          )}
 
         </div>
     )
