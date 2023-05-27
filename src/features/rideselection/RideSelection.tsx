@@ -7,7 +7,7 @@ import { TbLeaf, TbLeafOff } from "react-icons/tb";
 import { RSTopBar } from './RSTopBar'
 import {find_rides, create_ride} from "../api/api.jsx";
 import {useQuery, useMutation} from "react-query";
-import {useRecoilValue, useRecoilState} from "recoil";
+import {useRecoilValue, useRecoilState, useResetRecoilState} from "recoil";
 import {passengerFlowState, queryClient, lobbyState as lobbyState$} from "../../state";
 
 type Ride = {
@@ -20,6 +20,7 @@ export const RideSelection = () => {
   const navigate = useNavigate();
   const passengerFlow = useRecoilValue(passengerFlowState)
   const [lobbyState, setLobbyState] = useRecoilState(lobbyState$)
+  const resetLobby = useResetRecoilState(lobbyState$)
 
   if (!(passengerFlow.destination && passengerFlow.departure)) {
     navigate('/')
@@ -66,7 +67,16 @@ export const RideSelection = () => {
           backgroundColor: "white",
           color: '#000'
         }}>
-            <RSTopBar />
+            <RSTopBar
+              onBack={() => {
+                if (lobbyState.driver !== "") {
+                  return resetLobby();
+                }
+                navigate('/')
+              }}
+              from={passengerFlow.departure?.address}
+              to={passengerFlow.destination?.address}
+            />
           {lobbyState.driver !== "" && (
             <div>
               Destination: {lobbyState.destination}

@@ -4,8 +4,12 @@ import { GrLocation } from "react-icons/gr";
 export const RSTopBar = (props) => {
     return (
         <div id='rs-topbar'>
-            <IoIosArrowBack style={{position: 'absolute', top: "50px", left: '20px', fontSize: '1em', fontFamily: 'Blinker', color: '#B9BCBE'}} />
-            <span style={{position: 'absolute', top: "50px", left: '40px', fontSize: '1em', fontFamily: 'Blinker', color: '#B9BCBE'}}>Back</span>
+            <div onClick={props.onBack}>
+                <IoIosArrowBack
+                    style={{position: 'absolute', top: "50px", left: '20px', fontSize: '1em', fontFamily: 'Blinker', color: '#B9BCBE'}}
+                />
+                <span style={{position: 'absolute', top: "50px", left: '40px', fontSize: '1em', fontFamily: 'Blinker', color: '#B9BCBE'}}>Back</span>
+            </div>
             <GrLocation style={{position: 'absolute', top: "130px", left: '20px', color: 'black', fontSize: '2em'}}/>
             <IoIosArrowRoundForward style={{position: 'absolute', top: "130px", left: '50%', color: 'black', fontSize: '2em'}}/>
             <span style={{position: 'absolute', top: "135px", left: '60px', color: 'black', fontSize: '1em', fontFamily: 'Blinker'}}>{props.from}</span>
