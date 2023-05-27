@@ -29,9 +29,10 @@ const getLocation = (): Promise<Loc> => {
 };
 
 type Loc = [number, number]
-type Hub = {
+export type Hub = {
   loc: Loc,
-  address: string
+  address: string,
+  id: string,
   // type: 'official' | 'community'
 }
 
@@ -65,9 +66,6 @@ const MapContent = ({ hubs, onMarkerClick }: Props) => {
     }
     asyncWrapper()
   }, [])
-  useEffect(() => {
-    console.log('center', map.getCenter())
-  }, [location])
 
   // useEffect(() => {
   //   if (!map.current) return;
@@ -87,8 +85,6 @@ const MapContent = ({ hubs, onMarkerClick }: Props) => {
   //   }
   //
   // }, [hubs, cars])
-
-  console.log(map)
 
   return (
     <div>

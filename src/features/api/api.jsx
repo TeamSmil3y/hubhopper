@@ -1,4 +1,4 @@
-var email = 'pamerighiqa@europa.eu';
+var email = 'hkleinber3s@ucoz.ru';
 var password = 'password';
 
 function authorize(email, password)
@@ -35,7 +35,8 @@ export async function get_hubs() {
     // console.log(data)
     return data.map(data => ({
         loc: [data.fields.latitude, data.fields.longitude],
-        address: data.fields.info
+        address: data.fields.info,
+        id: data.pk
     }))
 }
 export async function find_rides(destination_hub_id, source_hub_id) {
