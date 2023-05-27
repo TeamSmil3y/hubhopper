@@ -43,7 +43,6 @@ type Props = {
 }
 
 export const Map = (props: Props) => {
-  console.log('map rendered')
   return (
     <MapContainer center={[0, 0]} zoom={13}>
       <TileLayer

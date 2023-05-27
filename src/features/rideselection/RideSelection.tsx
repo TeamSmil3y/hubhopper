@@ -8,9 +8,13 @@ import { RSTopBar } from './RSTopBar'
 import {find_rides, create_ride} from "../api/api.jsx";
 import {useQuery, useMutation} from "react-query";
 import {useRecoilValue} from "recoil";
-import {passengerFlowState} from "../../state";
+import {passengerFlowState, queryClient} from "../../state";
 
-const rides=[{driver:"Tim Ruppert", points:"230"}, {driver: "Lukas Stockmann", points:"666"}]
+type Ride = {
+  id: string,
+  points: number,
+  driver: number,
+}
 
 export const RideSelection = () => {
   const navigate = useNavigate();
@@ -23,25 +27,45 @@ export const RideSelection = () => {
     const data = useQuery({
       queryKey: 'rides',
       queryFn: () => find_rides(passengerFlow.destination.id, passengerFlow.departure.id),
-      enabled: Boolean(passengerFlow.destination && passengerFlow.departure)
+      enabled: Boolean(passengerFlow.destination && passengerFlow.departure),
+      keepPreviousData: true,
     })
   const { mutate: createRide} = useMutation({
     mutationKey: 'rides',
-    mutationFn: (vars) => create_ride(vars)
+    mutationFn: (vars) => create_ride(vars),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['rides'] })
+    },
   })
-  console.log(data)
+  // console.log(data)
 
     return (
-        <div style={{width: "100vw", height: "100vh", position: "absolute", paddingTop: "190px",top: "0px", left: "0", zIndex: "600", backgroundColor: "white"}}>
+        <div style={{
+          width: "100vw",
+          height: "100vh",
+          position: "absolute",
+          paddingTop: "190px",
+          top: "0px",
+          left: "0",
+          zIndex: "600",
+          backgroundColor: "white",
+          color: '#000'
+        }}>
             <RSTopBar />
             <div>
-                { rides.map((ride) => { return (
+              {data.status !== "success" && (
+                <div>loading</div>
+              )}
+              {(data.status === "success" && data.data.length === 0) && (
+                <div>no rides</div>
+              )}
+                {data.status === "success" && data.data.map((ride) => (
                     <div className="rs-ride">
                         <div style={{backgroundColor: "white", borderRadius: "100vw", height: "3em", aspectRatio: "1/1"}}></div>
                         <div style={{justifySelf: "start"}}><span style={{color: "#4D7143"}}>{ride.driver}</span></div>
                         <div><span style={{color: "#4D7143"}}>{ride.points>500?<TbLeaf/>:<TbLeafOff/>}{ride.points>100?<TbLeaf/>:<TbLeafOff/>}{ride.points>10?<TbLeaf/>:<TbLeafOff/>}</span><span style={{color: "black"}}>{ride.points}</span></div>
                     </div>
-                    )})}
+                  ))}
             </div>
           <button
             onClick={() => createRide({

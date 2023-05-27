@@ -12,11 +12,11 @@ export async function post(path, body) {
     let request = await fetch("https://api.hubhopper.app"+path, {
         method: "POST",
         mode: "cors",
-        
+
         body: JSON.stringify(body),
         headers: {
             "Content-Type": "application/json",
-            
+
             "Authorization": authorize(email, password)
         }
     });
@@ -43,10 +43,23 @@ export async function get_hubs() {
     }))
 }
 export async function find_rides(destination_hub_id, source_hub_id) {
-    return await post('/find-rides/', {'destination_hub_id':destination_hub_id, 'source_hub_id':source_hub_id})
+    const data1 = await post('/find-rides/', {'destination_hub_id':destination_hub_id, 'source_hub_id':source_hub_id})
+    console.log(data1)
+    // const data = JSON.parse(data1)
+    // console.log(data)
+    return data1.map(data => ({
+        id: data.pk,
+        points: data.fields.points,
+        driver: data.fields.driver,
+    }))
 }
 export async function create_ride({ destination_hub_id, source_hub_id }) {
-    return await post('/create-ride/', {'destination_hub_id':destination_hub_id, 'source_hub_id':source_hub_id})
+    const data = await post('/create-ride/', {'destination_hub_id':destination_hub_id, 'source_hub_id':source_hub_id})
+    console.log(data)
+    return {
+        ...data,
+        ride: JSON.parse(data.ride)
+    }
 }
 export async function join_request(ride_id, source_hub_id) {
     return await post('/request-join-ride/', {'ride_id':ride_id, 'passenger_hub_id':source_hub_id})
