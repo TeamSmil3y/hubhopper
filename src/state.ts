@@ -21,6 +21,7 @@ export const lobbyState = atom({
 		driver: "",
 		destination: "",
 		owner: false,
+		rideId: "",
 	},
 })
 

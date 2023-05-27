@@ -9,8 +9,9 @@ import {find_rides, create_ride} from "../api/api.jsx";
 import {useQuery, useMutation} from "react-query";
 import {useRecoilValue, useRecoilState, useResetRecoilState} from "recoil";
 import {passengerFlowState, queryClient, lobbyState as lobbyState$} from "../../state";
+import {Lobby} from "./Lobby";
 
-type Ride = {
+export type Ride = {
   id: string,
   points: number,
   driver: string,
@@ -49,7 +50,8 @@ export const RideSelection = () => {
     const data = {
       driver: ride.driver,
       destination: passengerFlow.destination.address,
-      owner
+      owner,
+      rideId: ride.id
     }
     console.log('----', data)
     setLobbyState(data)
@@ -78,11 +80,7 @@ export const RideSelection = () => {
               to={passengerFlow.destination?.address}
             />
           {lobbyState.driver !== "" && (
-            <div>
-              Destination: {lobbyState.destination}
-              Driver name: {lobbyState.driver}
-              {!lobbyState.owner && <button>Request to join</button>}
-            </div>
+            <Lobby {...lobbyState} />
           )}
           {lobbyState.driver === '' && (
             <div>

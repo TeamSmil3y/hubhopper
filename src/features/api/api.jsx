@@ -5,7 +5,6 @@ function authorize()
 {
     // base64 encoded basic auth username:password@web.site
     const { email, password } = getRecoil(currentUser)
-    console.log({ email, password })
     var creds = btoa(email + ":" + password)
     return "Basic " + creds
 }
@@ -46,7 +45,7 @@ export async function get_hubs() {
 }
 export async function find_rides(destination_hub_id, source_hub_id) {
     const data1 = await post('/find-rides/', {'destination_hub_id':destination_hub_id, 'source_hub_id':source_hub_id})
-    console.log(data1)
+    // console.log(data1)
     // const data = JSON.parse(data1)
     // console.log(data)
     return data1.map(data => ({
@@ -59,7 +58,7 @@ export async function create_ride({ destination_hub_id, source_hub_id }) {
     const data = await post('/create-ride/', {'destination_hub_id':destination_hub_id, 'source_hub_id':source_hub_id})
     return JSON.parse(data.ride)
 }
-export async function join_request(ride_id, source_hub_id) {
+export async function join_request({ ride_id, source_hub_id }) {
     return await post('/request-join-ride/', {'ride_id':ride_id, 'passenger_hub_id':source_hub_id})
 }
 export async function accept_join_request(ride_id, passenger_id) {
