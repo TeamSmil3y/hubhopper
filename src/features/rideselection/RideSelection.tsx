@@ -33,12 +33,11 @@ export const RideSelection = () => {
       enabled: Boolean(passengerFlow.destination && passengerFlow.departure),
       keepPreviousData: true,
     })
-  const { mutate: createRide} = useMutation({
+  const { mutate: createRide} = useMutation<unknown, unknown, { destination_hub_id: string, source_hub_id: string }>({
     mutationKey: 'rides',
     mutationFn: (vars) => create_ride(vars),
-    onSuccess: (data) => {
+    onSuccess: (data: Ride) => {
       queryClient.invalidateQueries({ queryKey: ['rides'] })
-      console.log('onSuc', data)
       selectRide({
         ...data,
         driver: "You"

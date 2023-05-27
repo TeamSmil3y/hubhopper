@@ -17,7 +17,7 @@ export const Lobby = ({ driver, destination, owner, rideId }: Props) => {
 		queryFn: update,
 		refetchInterval: 500
 	})
-	const { mutate: requestJoin } = useMutation({
+	const { mutate: requestJoin } = useMutation<unknown, unknown, { ride_id: string, source_hub_id: string }>({
 		mutationKey: 'rides',
 		mutationFn: (vars) => join_request(vars),
 		onSuccess: (data) => {

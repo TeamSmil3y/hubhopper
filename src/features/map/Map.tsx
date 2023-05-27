@@ -98,7 +98,7 @@ const MapContent = ({ hubs, onMarkerClick }: Props) => {
       {/*></Marker>*/}
       {hubs?.map((hub) => (
         <Marker
-          key={hub.loc}
+          key={hub.id}
           position={new L.LatLng(hub.loc[0], hub.loc[1])}
           icon={hubIcon}
           eventHandlers={{
