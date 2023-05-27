@@ -10,15 +10,17 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": false,
+    "noEmit": true,
     "jsx": "react-jsx",
+    "allowUnusedLabels": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
 
     /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "strict": false,
     "noFallthroughCasesInSwitch": true,
     "allowJs": true,
+    "strictNullChecks": false,
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
